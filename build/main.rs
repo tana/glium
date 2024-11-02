@@ -125,6 +125,7 @@ where
             "GL_OES_texture_npot",
             "GL_OES_vertex_array_object",
             "GL_OES_vertex_type_10_10_10_2",
+            "GL_OES_EGL_image_external",
         ],
     );
 

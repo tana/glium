@@ -1014,6 +1014,7 @@ fn glenum_to_uniform_type(ty: gl::types::GLenum) -> UniformType {
         gl::SAMPLER_BUFFER => UniformType::SamplerBuffer,
         gl::SAMPLER_2D_RECT => UniformType::Sampler2dRect,
         gl::SAMPLER_2D_RECT_SHADOW => UniformType::Sampler2dRectShadow,
+        gl::SAMPLER_EXTERNAL_OES => UniformType::SamplerExternal,
         gl::INT_SAMPLER_1D => UniformType::ISampler1d,
         gl::INT_SAMPLER_2D => UniformType::ISampler2d,
         gl::INT_SAMPLER_3D => UniformType::ISampler3d,

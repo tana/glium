@@ -102,6 +102,7 @@ pub enum UniformType {
     Sampler1dArrayShadow,
     Sampler2dArrayShadow,
     SamplerCubeArrayShadow,
+    SamplerExternal,
     Image1d,
     IImage1d,
     UImage1d,
