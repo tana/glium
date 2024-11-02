@@ -636,6 +636,9 @@ fn bind_uniform<P>(ctxt: &mut context::CommandContext,
         UniformValue::BufferTexture(texture) => {
             bind_texture_uniform(ctxt, &texture, None, location, program, texture_bind_points)
         },
+        UniformValue::ExternalTexture(texture, sampler) => {
+            bind_texture_uniform(ctxt, &texture, sampler, location, program, texture_bind_points)
+        },
         UniformValue::Image1d(texture, unit) => {
             bind_image_uniform(ctxt, &**texture, unit, location, program, image_unit_bind_points)
         },

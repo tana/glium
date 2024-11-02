@@ -246,6 +246,7 @@ pub enum UniformValue<'a> {
     UnsignedCubemapArray(&'a texture::UnsignedCubemapArray, Option<SamplerBehavior>),
     DepthCubemapArray(&'a texture::DepthCubemapArray, Option<SamplerBehavior>),
     BufferTexture(texture::buffer_texture::BufferTextureRef<'a>),
+    ExternalTexture(&'a texture::ExternalTexture, Option<SamplerBehavior>),
 
     Image1d(&'a texture::Texture1d, Option<ImageUnitBehavior>),
     IntegralImage1d(&'a texture::IntegralTexture1d, Option<ImageUnitBehavior>),
@@ -371,6 +372,7 @@ impl<'a> UniformValue<'a> {
             (&UniformValue::BufferTexture(tex), UniformType::USamplerBuffer) => {
                 tex.get_texture_type() == texture::buffer_texture::BufferTextureType::Unsigned
             },
+            (&UniformValue::ExternalTexture(_, _), UniformType::SamplerExternal) => true,
             (&UniformValue::Texture2dMultisample(..), UniformType::Sampler2dMultisample) => true,
             (&UniformValue::SrgbTexture2dMultisample(..), UniformType::Sampler2dMultisample) => true,
             (&UniformValue::IntegralTexture2dMultisample(..), UniformType::ISampler2dMultisample) => true,

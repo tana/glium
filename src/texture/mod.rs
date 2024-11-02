@@ -135,6 +135,7 @@ pub use self::ty_support::is_cubemap_arrays_supported;
 pub use self::texture_import::ExternalTilingMode;
 pub use self::texture_import::ImportParameters;
 pub use self::texture_import::TextureImportError;
+pub use self::external_texture::{ExternalTexture, EglImage};
 
 pub mod bindless;
 pub mod buffer_texture;
@@ -145,6 +146,7 @@ mod get_format;
 mod pixel;
 mod texture_import;
 mod ty_support;
+mod external_texture;
 
 
 mod textures {

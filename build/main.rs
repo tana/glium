@@ -1,4 +1,5 @@
 use gl_generator::{Api, Fallbacks, Profile, Registry};
+use std::collections::BTreeSet;
 use std::env;
 use std::fs::File;
 use std::io::Write;
@@ -15,6 +16,9 @@ fn main() {
 
     let mut file_output = File::create(&dest.join("gl_bindings.rs")).unwrap();
     generate_gl_bindings(&mut file_output);
+
+    // let mut egl_file_output = File::create(&dest.join("egl_bindings.rs")).unwrap();
+    // generate_egl_bindings(&mut egl_file_output);
 }
 
 fn generate_gl_bindings<W>(dest: &mut W)
@@ -129,7 +133,36 @@ where
         ],
     );
 
-    (gl_registry + gles_registry)
+    let mut registry = gl_registry + gles_registry;
+
+    // Workaround for GL_OES_EGL_image_external which seems not supported by gl_generator.
+    let mut additional_cmds = BTreeSet::new();
+    additional_cmds.insert(gl_generator::Cmd {
+        proto: gl_generator::Binding {
+            ident: String::from("EGLImageTargetTexture2DOES"),
+            ty: "()".into(),
+            group: None,
+        },
+        params: vec![
+            gl_generator::Binding {
+                ident: String::from("target"),
+                ty: "types::GLenum".into(),
+                group: None,
+            },
+            gl_generator::Binding {
+                ident: String::from("image"),
+                ty: "types::GLeglImageOES".into(),
+                group: None,
+            },
+        ],
+        alias: None,
+        vecequiv: None,
+        glx: None,
+    });
+
+    registry.cmds.append(&mut additional_cmds);
+
+    registry
         .write_bindings(gl_generator::StructGenerator, dest)
         .unwrap();
 }
